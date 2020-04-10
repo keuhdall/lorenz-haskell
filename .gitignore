@@ -1,0 +1,6 @@
+.stack-work/
+.vscode/
+out/
+lorenz-haskell.cabal
+stack.yaml.lock
+*~
