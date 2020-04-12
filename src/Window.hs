@@ -1,4 +1,4 @@
-module Window (window, windowSize, fps, bgColor) where
+module Window where
 
 import Graphics.Gloss
 
@@ -18,7 +18,7 @@ fps :: Int
 fps = 300
 
 screenDistance :: Float
-screenDistance = 10.0
+screenDistance = 200.0
 
 window :: Display
 window = InWindow windowName windowSize windowPos

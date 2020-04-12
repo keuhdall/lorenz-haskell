@@ -2,6 +2,7 @@ module Main where
 
 import Graphics.Gloss
 import Graphics.Gloss.Data.Picture
+import Graphics.Gloss.Data.ViewPort
 import Graphics.Gloss.Interface.Pure.Game
 import Control.Monad.State (State, execState, get)
 import Control.Lens
@@ -15,12 +16,9 @@ initialState = Lorenz {
   _x = 0.1,
   _y = 0.1,
   _z = 0.1,
-  _d = 10.0,
+  _d = screenDistance,
   _points = []
 }
-
-handleKeys :: Event -> Lorenz -> Lorenz
-handleKeys _ l = l
 
 updateValues :: State Lorenz ()
 updateValues = do
@@ -31,9 +29,8 @@ updateValues = do
   z += dz
   points .= convert l:l^.points
 
-update :: Float -> Lorenz -> Lorenz
-update t l = execState updateValues l
-
+update :: ViewPort -> Float -> Lorenz -> Lorenz
+update vp t l = execState updateValues l
 
 render :: Lorenz -> Picture
 render l = pictures $ translatePoint <$> l^.points where
@@ -41,4 +38,4 @@ render l = pictures $ translatePoint <$> l^.points where
   (w,h) = (fromIntegral . fst $ windowSize, fromIntegral . snd $ windowSize)
 
 main :: IO ()
-main = play window bgColor fps initialState render handleKeys update
+main = simulate window bgColor fps initialState render update
