@@ -1,9 +1,7 @@
 module Main where
 
 import Graphics.Gloss
-import Graphics.Gloss.Data.Picture
 import Graphics.Gloss.Data.ViewPort
-import Graphics.Gloss.Interface.Pure.Game
 import Control.Monad.State (State, execState, get)
 import Control.Lens
 
@@ -33,9 +31,7 @@ update :: ViewPort -> Float -> Lorenz -> Lorenz
 update vp t l = execState updateValues l
 
 render :: Lorenz -> Picture
-render l = pictures $ translatePoint <$> l^.points where
-  translatePoint (x,y) = translate (w/2) (h/2) $ translate x y pointPic
-  (w,h) = (fromIntegral . fst $ windowSize, fromIntegral . snd $ windowSize)
+render l = color white . line $ l^.points
 
 main :: IO ()
 main = simulate window bgColor fps initialState render update
