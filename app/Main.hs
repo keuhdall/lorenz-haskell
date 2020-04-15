@@ -5,33 +5,29 @@ import Graphics.Gloss.Data.ViewPort
 import Control.Monad.State (State, execState, get)
 import Control.Lens
 
-import Window
-import Lorenz
+import Attractor.Data
+import Attractor.State
+import Controls
 import Draw
+import Window
 
-initialState :: Lorenz
-initialState = Lorenz {
-  _x = 0.1,
-  _y = 0.1,
-  _z = 0.1,
-  _d = screenDistance,
-  _points = []
-}
-
-updateValues :: State Lorenz ()
+updateValues :: State Attractor ()
 updateValues = do
   l <- get
-  let (dx,dy,dz) = derivatives l
+  let (dx,dy,dz) = l^.equation $ l
   x += dx
   y += dy
   z += dz
   points .= convert l:l^.points
 
-update :: ViewPort -> Float -> Lorenz -> Lorenz
-update vp t l = execState updateValues l
+update :: Float -> Attractor -> Attractor
+update _ = execState $ do
+  updateValues
+  mustChangeAttractor
 
-render :: Lorenz -> Picture
+render :: Attractor -> Picture
 render l = color white . line $ l^.points
 
 main :: IO ()
-main = simulate window bgColor fps initialState render update
+--main = simulate window bgColor fps (initialState Lorenz) render update
+main = play window bgColor fps (initialState Lorenz) render handleKeys update
