@@ -1,7 +1,6 @@
 module Main where
 
 import Graphics.Gloss
-import Graphics.Gloss.Data.ViewPort
 import Control.Monad.State (State, execState, get)
 import Control.Lens
 
@@ -29,5 +28,4 @@ render :: Attractor -> Picture
 render l = color white . line $ l^.points
 
 main :: IO ()
---main = simulate window bgColor fps (initialState Lorenz) render update
 main = play window bgColor fps (initialState Lorenz) render handleKeys update
