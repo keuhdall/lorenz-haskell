@@ -15,9 +15,9 @@ lorenzEquation l = (dx, dy, dz) where
 
 rosslerEquation :: SystemEquation
 rosslerEquation l = (dx, dy, dz) where
-  dx = -(l^.y + l^.z) * δt
-  dy = l^.x + a * l^.y * δt
-  dz = b + l^.z * (l^.x - c) * δt
+  dx = -(l^.y - l^.z              ) * δt
+  dy =  (l^.x + a     * l^.y      ) * δt
+  dz =  (b    + l^.z  * (l^.x - c)) * δt
   a = 0.2
   b = 0.2
   c = 5.7
