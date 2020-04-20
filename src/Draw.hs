@@ -12,4 +12,4 @@ pointPic :: Picture
 pointPic = color white $ circleSolid pointRadius
 
 convert :: Attractor -> (Float, Float)
-convert l = (l^.x * l^.d / l^.z, l^.y * l^.d / l^.z)
+convert att = (att^.x * att^.d / att^.z, att^.y * att^.d / att^.z)

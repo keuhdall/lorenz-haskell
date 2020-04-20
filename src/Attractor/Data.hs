@@ -23,13 +23,12 @@ data AttractorType =
 type SystemEquation = Attractor -> (Float, Float, Float)
 
 data Attractor = Attractor {
-  _x :: Float,
-  _y :: Float,
-  _z :: Float,
-  _d :: Float,
-  _attr :: AttractorType,
-  _points :: Path,
-  _keys :: S.Set Key,
-  _equation :: SystemEquation
+  _x, _y, _z, _d  :: Float,
+  _pos            :: Point,
+  _attr           :: AttractorType,
+  _points         :: Path,
+  _keys           :: S.Set Key,
+  _mouse          :: S.Set MouseButton,
+  _equation       :: SystemEquation
 }
 makeLenses ''Attractor

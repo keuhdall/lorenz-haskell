@@ -1,4 +1,4 @@
-module Controls (handleKeys, mustChangeAttractor) where
+module Controls.Keyboard (mustChangeAttractor) where
 
 import Graphics.Gloss.Interface.Pure.Game
 import Control.Monad.State
@@ -7,10 +7,6 @@ import Data.Maybe
 
 import Attractor.Data
 import Attractor.State
-
-handleKeys :: Event -> Attractor -> Attractor
-handleKeys (EventKey k s _ _) = keys . contains k .~ (s == Down)
-handleKeys _ = id
 
 attractorFromKey :: Char -> AttractorType
 attractorFromKey c = case c of
@@ -31,4 +27,4 @@ mustChangeAttractor = do
   let newAttractor = attractorFromKey <$> (listToMaybe $ filter keyPressed ['1'..'8'])
   case newAttractor of
     Just newAttr  -> put $ initialState newAttr
-    Nothing       -> pure ()
+    Nothing       -> return ()

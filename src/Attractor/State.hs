@@ -11,9 +11,11 @@ initialState t = Attractor {
   _x = 0.1,
   _y = 0.1,
   _z = 0.1,
+  _pos = (0,0),
   _d = screenDistance,
   _attr = t,
   _points = [],
   _keys = S.empty,
+  _mouse = S.empty,
   _equation = getEquation t
 }
